@@ -1,17 +1,24 @@
+"use client";
+
 import { DEFAULT_FORM_PAGES } from "@/data";
 import { Plus } from "lucide-react";
 import React from "react";
+import FormPageItem from "./FormPageItem";
+import { usePagesStore } from "@/store/usePagesStore";
 
-function FormPages() {
+const FormPages = () => {
+  const { activePage, setActivePage } = usePagesStore();
+
   return (
-    <div className="flex">
-      {DEFAULT_FORM_PAGES.map(({ id, text, icon: Icon }) => (
-        <div key={id} className="flex items-center">
-          <button className="btn btn-secondary">
-            <Icon size={20} /> {text}
-          </button>
-          <hr className="w-5 h-[1.5px] border border-dashed border-gray-100" />
-        </div>
+    <div className="flex h-full items-end">
+      {DEFAULT_FORM_PAGES.map(({ id, text, icon }, index) => (
+        <FormPageItem
+          key={id}
+          text={text}
+          icon={icon}
+          isActive={activePage === index}
+          onClick={() => setActivePage(index)}
+        />
       ))}
 
       <button className="btn btn-primary">
@@ -20,6 +27,6 @@ function FormPages() {
       </button>
     </div>
   );
-}
+};
 
 export default FormPages;

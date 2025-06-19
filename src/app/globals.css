@@ -11,8 +11,7 @@
   --color-gray-500: #9da4b226;
   --color-gray-400: #9da4b259;
   --color-gray-300: #e1e1e1;
-  --color-gray-200: #e1e1e1;
-  --color-gray-100: #c0c0c0;
+  --color-gray-200: #c0c0c0;
 }
 
 @layer components {
@@ -26,6 +25,8 @@
     font-size: 0.875rem;
     border-radius: 8px;
     cursor: pointer;
+    border: 0.5px solid transparent;
+    transition: all 300ms ease-in-out;
   }
 
   .btn-primary {
@@ -65,7 +66,7 @@
       stroke: var(--color-yellow);
     }
   }
-  .btn-secondary:active {
+  .btn-secondary-active {
     background-color: white;
     color: var(--color-black-500);
     border: 0.5px solid #e1e1e1;
@@ -76,5 +77,25 @@
     svg {
       stroke: var(--color-yellow);
     }
+  }
+}
+
+.menu-shadow {
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.04);
+}
+
+.slide-in {
+  animation: slideIn 300ms ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    margin-bottom: -15px;
+  }
+  to {
+    opacity: 1;
+    margin-bottom: 0;
   }
 }

@@ -1,0 +1,52 @@
+import React, { useRef, useState } from "react";
+import { EllipsisVertical, LucideIcon } from "lucide-react";
+import ContextMenu from "./ContextMenu";
+import useOutsideClick from "@/hooks/useClickOutside";
+import { cn } from "clsx-for-tailwind";
+
+type Props = {
+  text: string;
+  icon: LucideIcon;
+  isActive: boolean;
+  onClick: () => void;
+};
+
+const FormPageItem: React.FC<Props> = ({
+  text,
+  icon: Icon,
+  isActive,
+  onClick,
+}) => {
+  const ref = useRef<SVGSVGElement>(null);
+  const [isContextMenuOpen, setIsContextMenuOpen] = useState<boolean>(false);
+
+  const handleCloseMenu = () => setIsContextMenuOpen(false);
+  useOutsideClick<SVGSVGElement>(ref, handleCloseMenu);
+
+  return (
+    <div className="flex items-center relative">
+      <button
+        className={cn("btn btn-secondary", {
+          "btn-secondary-active": isActive,
+        })}
+        onClick={onClick}
+      >
+        <Icon size={20} /> {text}
+        {isActive && (
+          <EllipsisVertical
+            ref={ref}
+            size={20}
+            className="stroke-gray-600"
+            onClick={() => setIsContextMenuOpen(!isContextMenuOpen)}
+          />
+        )}
+      </button>
+
+      {isContextMenuOpen && <ContextMenu />}
+
+      <hr className="w-5 h-[1.5px] border border-dashed border-gray-200" />
+    </div>
+  );
+};
+
+export default FormPageItem;
