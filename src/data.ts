@@ -10,20 +10,20 @@ import {
 } from "lucide-react";
 
 export interface FormPage {
-  id: number;
+  id: string;
   text: string;
   icon: LucideIcon;
 }
 
 export const DEFAULT_FORM_PAGES: FormPage[] = [
-  { id: 1, text: "Info", icon: Info },
-  { id: 2, text: "Details", icon: FileText },
-  { id: 3, text: "Other", icon: FileText },
-  { id: 4, text: "Ending", icon: CircleCheck },
+  { id: "1", text: "Info", icon: Info },
+  { id: "2", text: "Details", icon: FileText },
+  { id: "3", text: "Other", icon: FileText },
+  { id: "4", text: "Ending", icon: CircleCheck },
 ];
 
 export interface ContextMenu {
-  id: number;
+  id: string;
   text: string;
   icon: LucideIcon;
   iconColor?: string;
@@ -31,23 +31,23 @@ export interface ContextMenu {
 
 export const CONTEXT_MENU_ITEMS: ContextMenu[] = [
   {
-    id: 1,
+    id: "1",
     text: "Set as first page",
     icon: Flag,
     iconColor: "stroke-blue",
   },
   {
-    id: 2,
+    id: "2",
     text: "Rename",
     icon: PencilLine,
   },
   {
-    id: 3,
+    id: "3",
     text: "Copy",
     icon: Copy,
   },
   {
-    id: 4,
+    id: "4",
     text: "Duplicate",
     icon: Clipboard,
   },
