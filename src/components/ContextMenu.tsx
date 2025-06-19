@@ -4,7 +4,7 @@ import { cn } from "clsx-for-tailwind";
 
 const ContextMenu = () => {
   return (
-    <div className="absolute left-0 bottom-10 w-60 rounded-xl border-[0.5px] border-gray-300 border-solid menu-shadow slide-in">
+    <div className="absolute left-0 bottom-10 w-60 rounded-xl border-[0.5px] border-gray-300 border-solid menu-shadow slide-in bg-white">
       <span className="text-black-500 font-medium text-base p-3 block border-b-[0.5px] border-gray-300 border-solid">
         Settings
       </span>

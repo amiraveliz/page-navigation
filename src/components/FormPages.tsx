@@ -14,7 +14,8 @@ import {
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 
 const FormPages = () => {
-  const { activePage, setActivePage, pages, setPages } = usePagesStore();
+  const { activePage, setActivePage, pages, setPages, addNewPage } =
+    usePagesStore();
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } })
   );
@@ -30,21 +31,26 @@ const FormPages = () => {
   };
 
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <div className="flex h-full items-end">
+    <DndContext id="dnd-app" sensors={sensors} onDragEnd={handleDragEnd}>
+      <div className="flex flex-wrap items-center">
         <SortableContext items={pages}>
           {pages.map(({ id, text, icon }, index) => (
             <FormPageItem
               key={id}
+              isLast={index === pages.length - 1}
               id={id}
               text={text}
               icon={icon}
               isActive={activePage === index}
               onClick={() => setActivePage(index)}
+              handleAddNewPage={() => addNewPage(index)}
             />
           ))}
 
-          <button className="btn btn-primary">
+          <button
+            className="btn btn-primary"
+            onClick={() => addNewPage(pages.length)}
+          >
             <Plus />
             Add page
           </button>
