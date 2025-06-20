@@ -22,7 +22,7 @@ export const usePagesStore = create<PagesState>((set, get) => ({
     const { pages } = get();
     const newPage = {
       id: crypto.randomUUID(),
-      text: `Page ${pages.length + 1}`,
+      text: `Document ${pages.length + 1}`,
       icon: FileText,
     };
     const updatedPages = [

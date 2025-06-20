@@ -13,10 +13,11 @@ const PageDetails: React.FC<Props> = ({ id }) => {
 
   const page: FormPage | undefined = pages.find((page) => page.id === id);
 
+  if (!page) return;
+
   return (
     <div>
-      <h1>{page?.id}</h1>
-      <h1>{page?.text}</h1>
+      <h1 className="text-2xl md:text-5xl my-2">Page: {page.text}</h1>
     </div>
   );
 };
