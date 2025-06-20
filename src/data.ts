@@ -2,32 +2,19 @@ import {
   Info,
   FileText,
   CircleCheck,
-  LucideIcon,
   Flag,
   PencilLine,
   Copy,
   Clipboard,
 } from "lucide-react";
-
-export interface FormPage {
-  id: string;
-  text: string;
-  icon: LucideIcon;
-}
+import { ContextMenu, FormPage } from "./types/page";
 
 export const DEFAULT_FORM_PAGES: FormPage[] = [
-  { id: "1", text: "Info", icon: Info },
-  { id: "2", text: "Details", icon: FileText },
-  { id: "3", text: "Other", icon: FileText },
-  { id: "4", text: "Ending", icon: CircleCheck },
+  { id: crypto.randomUUID(), text: "Info", icon: Info },
+  { id: crypto.randomUUID(), text: "Details", icon: FileText },
+  { id: crypto.randomUUID(), text: "Other", icon: FileText },
+  { id: crypto.randomUUID(), text: "Ending", icon: CircleCheck },
 ];
-
-export interface ContextMenu {
-  id: string;
-  text: string;
-  icon: LucideIcon;
-  iconColor?: string;
-}
 
 export const CONTEXT_MENU_ITEMS: ContextMenu[] = [
   {

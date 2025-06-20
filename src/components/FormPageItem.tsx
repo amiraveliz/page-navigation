@@ -5,8 +5,8 @@ import useOutsideClick from "@/hooks/useClickOutside";
 import { cn } from "clsx-for-tailwind";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { FormPage } from "@/data";
 import AddPageDashed from "./AddPageDashed";
+import { FormPage } from "@/types/page";
 
 type Props = {
   page: FormPage;

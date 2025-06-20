@@ -12,6 +12,7 @@ import {
   DragEndEvent,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { useRouter } from "next/navigation";
 
 const FormPages = () => {
   const { activePage, setActivePage, pages, setPages, addNewPage } =
@@ -19,6 +20,7 @@ const FormPages = () => {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } })
   );
+  const router = useRouter();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -34,6 +36,11 @@ const FormPages = () => {
     }
   };
 
+  const handleOnSelectPage = (id: string) => {
+    setActivePage(id);
+    router.push(`/page/${id}`);
+  };
+
   return (
     <DndContext id="dnd-id" sensors={sensors} onDragEnd={handleDragEnd}>
       <div
@@ -47,15 +54,15 @@ const FormPages = () => {
               key={page.id}
               page={page}
               isLast={index === pages.length - 1}
-              isActive={activePage === index}
-              onSelectPage={() => setActivePage(index)}
-              onAddNewPage={() => addNewPage(index)}
+              isActive={activePage === page.id}
+              onSelectPage={() => handleOnSelectPage(page.id)}
+              onAddNewPage={() => addNewPage(index, router)}
             />
           ))}
 
           <button
             className="btn btn-primary"
-            onClick={() => addNewPage(pages.length)}
+            onClick={() => addNewPage(pages.length - 1, router)}
             aria-label="Add a new form page"
             title="Add a new page"
             type="button"
