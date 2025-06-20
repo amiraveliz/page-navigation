@@ -17,7 +17,7 @@ const PageDetails: React.FC<Props> = ({ id }) => {
 
   return (
     <div>
-      <h1 className="text-2xl md:text-5xl my-2">Page: {page.text}</h1>
+      <h1 className="text-2xl md:text-3xl my-2">Page: {page.text}</h1>
     </div>
   );
 };
