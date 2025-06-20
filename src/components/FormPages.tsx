@@ -22,36 +22,45 @@ const FormPages = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    const oldIndex = pages.findIndex((page) => page.id === active.id);
-    const newIndex = pages.findIndex((page) => page.id === over?.id);
-    const updatedPages = arrayMove(pages, oldIndex, newIndex);
-    if (active.id !== over?.id) {
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = pages.findIndex((p) => p.id === active.id);
+    const newIndex = pages.findIndex((p) => p.id === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const updatedPages = arrayMove(pages, oldIndex, newIndex);
       setPages(updatedPages);
     }
   };
 
   return (
-    <DndContext id="dnd-app" sensors={sensors} onDragEnd={handleDragEnd}>
-      <div className="flex flex-wrap items-center">
-        <SortableContext items={pages}>
-          {pages.map(({ id, text, icon }, index) => (
+    <DndContext id="dnd-id" sensors={sensors} onDragEnd={handleDragEnd}>
+      <div
+        className="flex flex-wrap gap-y-2"
+        role="list"
+        aria-label="List of form pages"
+      >
+        <SortableContext items={pages.map((p) => p.id)}>
+          {pages.map((page, index) => (
             <FormPageItem
-              key={id}
+              key={page.id}
+              page={page}
               isLast={index === pages.length - 1}
-              id={id}
-              text={text}
-              icon={icon}
               isActive={activePage === index}
-              onClick={() => setActivePage(index)}
-              handleAddNewPage={() => addNewPage(index)}
+              onSelectPage={() => setActivePage(index)}
+              onAddNewPage={() => addNewPage(index)}
             />
           ))}
 
           <button
             className="btn btn-primary"
             onClick={() => addNewPage(pages.length)}
+            aria-label="Add a new form page"
+            title="Add a new page"
+            type="button"
           >
-            <Plus />
+            <Plus aria-hidden="true" />
             Add page
           </button>
         </SortableContext>

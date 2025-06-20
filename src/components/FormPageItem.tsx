@@ -1,36 +1,34 @@
-import React, { useRef, useState } from "react";
-import { EllipsisVertical, LucideIcon, Plus } from "lucide-react";
+import React, { useCallback, useRef, useState } from "react";
+import { EllipsisVertical } from "lucide-react";
 import ContextMenu from "./ContextMenu";
 import useOutsideClick from "@/hooks/useClickOutside";
 import { cn } from "clsx-for-tailwind";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { FormPage } from "@/data";
+import AddPageDashed from "./AddPageDashed";
 
 type Props = {
-  id: string;
-  text: string;
-  icon: LucideIcon;
+  page: FormPage;
   isActive: boolean;
   isLast: boolean;
-  onClick: () => void;
-  handleAddNewPage: () => void;
+  onSelectPage: () => void;
+  onAddNewPage: () => void;
 };
 
 const FormPageItem: React.FC<Props> = ({
-  id,
-  text,
-  icon: Icon,
+  page,
   isActive,
   isLast,
-  onClick,
-  handleAddNewPage,
+  onSelectPage,
+  onAddNewPage,
 }) => {
   const ref = useRef<SVGSVGElement>(null);
   const [isContextMenuOpen, setIsContextMenuOpen] = useState<boolean>(false);
-  const [isAddNewHover, setIsAddNewHover] = useState<boolean>(false);
+
   const { listeners, attributes, setNodeRef, transform, transition } =
     useSortable({
-      id: id,
+      id: page.id,
     });
 
   const style: React.CSSProperties = {
@@ -43,12 +41,16 @@ const FormPageItem: React.FC<Props> = ({
     transition,
   };
 
-  const handleCloseMenu = () => setIsContextMenuOpen(false);
+  const handleCloseMenu = useCallback(() => {
+    setIsContextMenuOpen(false);
+  }, []);
   useOutsideClick<SVGSVGElement>(ref, handleCloseMenu);
+
+  const { text, icon: Icon } = page;
 
   return (
     <div
-      className="flex items-center relative my-2"
+      className="flex items-center relative"
       ref={setNodeRef}
       style={{ ...style }}
       {...listeners}
@@ -58,48 +60,31 @@ const FormPageItem: React.FC<Props> = ({
         className={cn("btn btn-secondary", {
           "btn-secondary-active": isActive,
         })}
-        onClick={onClick}
+        onClick={onSelectPage}
+        aria-label="Select a form page"
       >
-        <Icon size={20} /> {text}
-        {isActive && (
-          <EllipsisVertical
-            ref={ref}
-            size={20}
-            className="stroke-gray-600"
-            onClick={() => setIsContextMenuOpen(!isContextMenuOpen)}
-          />
-        )}
+        <Icon size={20} aria-hidden="true" /> {text}
+        <EllipsisVertical
+          ref={ref}
+          size={20}
+          className={cn("stroke-gray-600", { hidden: !isActive })}
+          onClick={() => setIsContextMenuOpen(!isContextMenuOpen)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              setIsContextMenuOpen((isContextMenuOpen) => !isContextMenuOpen);
+            }
+          }}
+          aria-label="Toggle context menu"
+          aria-expanded={isContextMenuOpen}
+          role="button"
+          tabIndex={0}
+        />
       </button>
 
       {isContextMenuOpen && <ContextMenu />}
 
-      <div
-        className="h-8 flex items-center relative"
-        onMouseEnter={() => setIsAddNewHover(true)}
-        onMouseLeave={() => setIsAddNewHover(false)}
-      >
-        <div
-          className={cn(
-            "absolute w-full h-full left-1/2 top-1/2 -translate-1/2 flex justify-center items-center transition-all duration-200 ease-[ease-in-out]",
-            isAddNewHover && !isLast ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <button
-            onClick={handleAddNewPage}
-            className="w-4 h-4 border border-gray-200 rounded-full flex items-center justify-center bg-white cursor-pointer"
-          >
-            <Plus size={16} />
-          </button>
-        </div>
-        <hr
-          className={cn(
-            "w-5 h-[1.5px] border border-dashed border-gray-200 transition-all duration-200 ease-[ease-in-out]",
-            {
-              "w-14": isAddNewHover && !isLast,
-            }
-          )}
-        />
-      </div>
+      <AddPageDashed onAddNewPage={onAddNewPage} isLast={isLast} />
     </div>
   );
 };
