@@ -16,12 +16,6 @@ function Logo() {
 
   return (
     <button className="cursor-pointer" onClick={handleRedirectToHome}>
-      {/* <Image
-        src={assets.filloutLogo}
-        width={300}
-        height={100}
-        alt="Fillout logo"
-      /> */}
       <FolderSearch2 size={300} />
     </button>
   );
