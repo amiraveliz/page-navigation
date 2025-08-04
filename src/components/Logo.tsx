@@ -1,11 +1,9 @@
 "use client";
 
-import { assets } from "@/assets/assets";
-import Image from "next/image";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { usePagesStore } from "@/store/usePagesStore";
-import { BookOpenText, FolderSearch, FolderSearch2 } from "lucide-react";
+import { FolderSearch2 } from "lucide-react";
 
 function Logo() {
   const router = useRouter();
