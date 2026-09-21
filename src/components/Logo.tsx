@@ -16,7 +16,7 @@ function Logo() {
 
   return (
     <button className="cursor-pointer" onClick={handleRedirectToHome}>
-      <FolderSearch2 size={300} />
+      <FolderSearch2 size={300} color="white" />
     </button>
   );
 }

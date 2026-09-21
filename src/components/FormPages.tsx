@@ -61,7 +61,7 @@ const FormPages = () => {
           ))}
 
           <button
-            className="btn btn-primary"
+            className="btn btn-primary bg-cyan-200"
             onClick={() => addNewPage(pages.length - 1, router)}
             aria-label="Add a new form page"
             title="Add a new page"
