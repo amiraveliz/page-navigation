@@ -25,5 +25,4 @@ Nextjs 15, React 19, Typescript, React Hooks, Tailwind, Zustand and others.
 The project was created to support accessibility, to be SEO friendly, and responsive across all devices.
 
 
-<img width="787" height="564" alt="Screenshot 2025-08-03 at 23 27 10" src="https://github.com/user-attachments/assets/8e53b1a8-c619-437b-a56e-08a10ebc9ff8" />
-
+<img width="1328" height="765" alt="Screenshot 2026-09-21 at 12 30 07" src="https://github.com/user-attachments/assets/efdbc20f-935e-4db7-8438-548207455908" />
